@@ -1,0 +1,989 @@
+/*
+Variables
+	(or CSS Custom Properties, allow you to re-use your values through all your stylesheet by giving it any valid css value,
+	You can use this variable many times with var() function, and you can update once, like the light and dark Mode that most websites use,
+	they just switch variables value. ant it will appliyed for the whole website)
+*/
+:root {
+	--header-bg: #494539;
+	--purple-color: #370191;
+	--button-bg: #1762A7;
+	--red-color: #D12E2E;
+	--light-red-color: #CC3143;
+	--pink-color: #FF29A9;
+	--black-color: #000000;
+	--white-color: #ffffff;
+	--link-hover: #423f34;
+	--transparent-pink: rgba(255, 41, 169, 0.61); /* rgba, stands for: red, green, blue, alpha: means opacity */
+	--transparent-black: rgba(56, 53, 53, 0.78);
+	--text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); /* for text-shadow property, Syntax => text-shadow: h-shadow v-shadow blur-radius color */
+	--size-small: 15px;
+	--size-regular: 20px;
+	--size-medium: 18px;
+	--size-larg: 40px;
+}
+
+/*
+Import Fonts
+	(Web fonts allow Web designers to use fonts that are not installed on the user's computer.
+	When you have found/bought the font you wish to use, just include the font file on your web server,
+	and it will be automatically downloaded to the user when needed.)
+*/
+@font-face {
+	font-family: 'Poppins-regular'; /* Required. Defines the name of the font. you can write any name you want*/
+	src: url('../fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+	/*
+		src: Required. Defines the URL(s) where the font should be downloaded
+		from format('truetype'): To provide the browser with a hint as to what format a font resource is — so it can select a suitable one,
+		for .ttf fonts, TrueType is the most common font format for both the Mac OS and Microsoft Windows operating systems.
+	*/
+	font-style: normal; /* The font-style property specifies the font style for a text. examples: normal|italic|oblique|initial|inherit*/
+	font-weight: normal; /* The font-weight property sets how thick or thin characters in text should be displayed. eg, normal, bold, 100 to 900 */
+}
+
+@font-face {
+	font-family: 'Poppins-light';
+	src: url('../fonts/Poppins/Poppins-Light.ttf') format('truetype');
+	font-style: normal;
+	font-weight: lighter;
+}
+
+@font-face {
+	font-family: 'Poppins-medium';
+	src: url('../fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+	font-style: normal;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Poppins-semibold';
+	src: url('../fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Poppins-bold';
+	src: url('../fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: bold;
+}
+
+/*
+ Reset Default Styles from used tags
+*/
+* {
+	padding: 0; /* Remove every padding & margin on the html document, so we can apply after, our padding and margin so easy*/
+	margin: 0;
+	box-sizing: border-box;
+	/*
+		default value is content-box.
+		by using border-box tells the browser to account for any border and padding in the values you specify for an element's width and height.
+		If you set an element's width to 100 pixels, that 100 pixels will include any border or padding you added,
+		and the content box will shrink to absorb that extra width.
+		This typically makes it much easier to size elements.
+	*/
+}
+
+html {
+	scroll-behavior: smooth; /* Sets the behavior for a scrolling box when scrolling is triggered by the navigation. */
+}
+
+body {
+	overflow-x: hidden; /* to hide any horizontal overflow in body */
+	font-family: 'Poppins-regular', sans-serif; /* The font-family property can hold several font names as a "fallback" system. If the browser does not support the first font, it tries the next font. eg, 'Poppins-regular', 'Arial', sans-serif, ... */
+	font-size: var(--size-small); /* Global font-size for all the element on the body*/
+	background-color: var(--white-color); /* you can add fallback color, if the first one doesn't work, like this var(--color, red) */
+	line-height: 1.2; /* specifies the height of a line, or more clearly space between lines */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	display: block; /* make all heading have the whole block (like 100% width of the parent) */
+	font-weight: 700;
+}
+
+a,
+a:hover, /* Hover selector is used to select elements when you mouse over them. (can be used on all elements, not only on links)*/
+a:focus, /* the element that has focus (is allowed on elements that accept keyboard events or other user inputs)*/
+a:visited/* visited links */
+{
+	outline: none; /* remove outline, An outline is a line that is drawn around elements, OUTSIDE the borders */
+	text-decoration: none; /* remove default underline */
+}
+
+li {
+	list-style: none; /* remove dot list style that comes as default*/
+}
+
+button,
+button:focus {
+	outline: 0 !important; /* the 'important' keyword to override the old value to the current one */
+	cursor: pointer; /* sets the type of cursor, to show when the mouse pointer is over an element. eg, help|wait|crosshair|not-allowed|zoom-in| ... */
+}
+
+input,
+textarea:focus {
+	outline: 0;
+}
+
+/*
+Common Style
+	our custom classes to use them anywhere we want
+*/
+.btn {
+	background: var(--button-bg);
+	color: var(--white-color);
+	font-size: var(--size-small);
+	line-height: 1.2;
+	text-transform: unset; /* controls the capitalization of text. eg, none|capitalize|uppercase|lowercase|initial|inherit */
+	border: none; /* Remove the borders */
+	cursor: pointer; /* make the mouse cursor pointer when we hover over it */
+	border-radius: 15px; /* defines the radius of the element's corners. */
+}
+
+.container {
+	width: 100%; /* take the whole width */
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	/*
+		You can set the margin property to auto to horizontally center the element within its container.
+		The element will then take up the specified width,
+		and the remaining space will be split equally between the left and right margins.
+	*/
+}
+
+.d-none {
+	display: none !important; /* hide the element */
+}
+
+.alert-info {
+	padding: .75rem 1.25rem;
+	border: 1px solid transparent;
+	/* border: border-width border-style border-color */
+	border-radius: .25rem;
+	color: #0c5460;
+	background-color: #d1ecf1;
+	border-color: #bee5eb;
+}
+
+/*
+Header section
+*/
+#menu {
+	background-color: var(--header-bg);
+	width: 100%;
+}
+
+#menu nav {
+	display: flex;
+	/*
+		Flex, It enables a flex context for all its direct children. Note that CSS columns have no effect on a flex container.
+		The Flexible Box Layout Module, makes it easier to design flexible responsive layout structure
+		without using float or positioning for the children they will be side by side.
+	*/
+	justify-content: space-between;
+	/* The space-between value displays the flex items with space between Horizontaly*/
+	align-items: center;
+	/* The center value aligns the flex items in the middle of the container Verticaly */
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+#menu .brand {
+	display: flex;
+	font-size: var(--size-medium);
+	align-items: center;
+	color: var(--white-color);
+}
+
+#menu .brand img {
+	margin-right: 1rem;
+}
+
+#menu ul {
+	display: flex;
+}
+
+/* apply margin-left for all the li element except for the first one */
+#menu ul li:not(:first-child) {
+	margin-left: 4rem;
+}
+
+#menu ul li a {
+	color: var(--white-color);
+	font-weight: normal;
+	font-size: 16px;
+}
+
+/* Hide the toggler check box, but it still work on invisible mode, to check if we clicked on the open icon or not, that's all what it does */
+#menu #toggle-menu {
+	display: none;
+}
+
+/* hide the open and close icons, untill we will show 'open icon'in navbar on mobile mode and the same thing with 'close icon' in sidebar only */
+#menu label.open,
+#menu label.close {
+	cursor: pointer;
+	display: none;
+}
+
+#menu label.close {
+	right: 16px;
+	z-index: 10;
+	/* specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order. */
+	position: fixed;
+	/*
+		Fixed, is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled.
+		The top, right, bottom, and left properties are used to position the element. (we only used right property that we need)
+		A fixed element does not leave a gap in the page where it would normally have been located.
+	*/
+}
+
+/* Hero Section */
+#hero {
+	padding-top: 8rem;
+	background-color: var(--purple-color);
+	color: var(--white-color);
+}
+
+/* Select all the direct div children of #hero and get the '.container' classes inside them */
+#hero>div.container {
+	display: flex;
+	justify-content: space-around;
+	/*
+		items are evenly distributed in the line with equal space around them.
+		Note that visually the spaces aren’t equal, since all the items have equal space on both sides.
+		The first item will have one unit of space against the container edge.
+	*/
+}
+
+#hero .container img {
+	width: 500px;
+}
+
+.hero-cta h1 {
+	font-family: 'Poppins-semibold';
+	font-size: var(--size-larg);
+	font-weight: 600;
+	color: var(--transparent-pink);
+	text-shadow: var(--text-shadow);
+	letter-spacing: 0.02em;
+	/* space between letters */
+}
+
+.hero-cta p {
+	color: var(--white-color);
+	font-size: 23px;
+	font-family: "Poppins-medium";
+	letter-spacing: 0.02em;
+	margin-top: 1rem;
+}
+
+.hero-cta .btn {
+	margin-top: 2.5rem;
+	padding: 1rem 2rem;
+	display: inline-block;
+	font-family: "Poppins-regular";
+}
+
+/* Features Section */
+#features {
+	background: var(--red-color);
+	color: var(--white-color);
+	padding: 8rem 0;
+	text-align: center;
+	/* centering the text */
+}
+
+#features .container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height: 454px;
+}
+
+#features .container h3 {
+	font-size: 23px;
+	font-weight: normal;
+	letter-spacing: 0.05em;
+	font-family: "Poppins-medium";
+}
+
+#features .container p {
+	font-size: var(--size-medium);
+	line-height: 30px;
+}
+
+/* Select first direct div child on .container class */
+#features .container>div:first-child {
+	display: flex;
+	flex-direction: column;
+	/*
+		flex-directio sets how flex items are placed in the flex container defining the main axis and the direction.
+		default value is row, so justify-content will work horizontally and align-items Vertically.
+		by using column value, these 2 properties will revers, like justify-content will work Vertically and align-items horizontally.
+	*/
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	width: 380px;
+}
+
+#features .container .icons {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+#features .container .icons span {
+	display: block;
+	margin-top: 30px;
+}
+
+#features .container .capturse {
+	height: 100%;
+	text-align: left;
+	min-width: 430px;
+	/* the minimum width */
+	max-width: 430px;
+	/* the maximum width, so we have a fixed size */
+}
+
+#features .container .capturse img {
+	margin: 5px;
+	/* 5px space between the images */
+}
+
+/* Sign Up Section */
+#sign-up {
+	padding: 8rem 0;
+	background-color: var(--purple-color);
+	color: var(--white-color);
+}
+
+#sign-up .container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#sign-up .join-the-fun {
+	text-align: center;
+}
+
+#sign-up .join-the-fun h2 {
+	font-family: "Poppins-bold";
+	font-size: 33px;
+}
+
+#sign-up .join-the-fun h2 span {
+	font-size: var(--size-larg);
+	color: var(--pink-color);
+}
+
+#sign-up .join-the-fun p {
+	font-size: var(--size-regular);
+	font-family: 'Poppins-light';
+	line-height: 2rem;
+	margin-top: 1rem;
+	letter-spacing: 1px
+}
+
+/* Select all the element inside form tag */
+#sign-up form * {
+	display: block;
+}
+
+/* Select all the inputs inside the form */
+#sign-up form input {
+	border: none;
+	font-size: var(--size-small);
+	padding: .5rem .3rem;
+	min-width: 300px;
+	/* minimum width is 300px */
+	margin-bottom: 1rem;
+	margin-top: 5px;
+}
+
+/* Select last input inside fome tag */
+#sign-up form input:last-child {
+	min-width: 100px;
+	margin: 0 auto;
+	/* have the alament on center as I explained on auto margin value, Syntax (margin: y-value x-value) or margin: top-value right-v bottom-v left-v*/
+}
+
+/* Posts Section*/
+#posts {
+	margin-bottom: 4rem;
+	margin-top: 3rem;
+}
+
+#posts .container {
+	display: flex;
+	flex-wrap: wrap; /* sets whether flex items are forced into one line or can wrap onto multiple lines. */
+	justify-content: space-between;
+}
+
+#posts .post {
+	width: 300px;
+}
+
+#posts .post .title a {
+	font-family: 'Poppins-regular';
+	font-size: var(--size-regular);
+	line-height: 25px;
+	margin-top: 1rem;
+	margin-bottom: 3rem;
+	text-transform: uppercase; /* make all text characters capitalize */
+	color: var(--black-color);
+	display: block;
+	text-align: center;
+}
+
+#posts .post img {
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+}
+
+/* Select first post */
+#posts .post:first-child {
+	width: 100% !important;
+	margin-bottom: 4rem;
+	position: relative;
+}
+
+/* Select first post and give this style to the image */
+#posts .post:first-child img {
+	width: 100%;
+	height: auto;
+	max-height: 650px;
+	object-fit: cover;
+	/*
+		The object-fit CSS property sets how the content of a replaced element, such as an <img> or <video>, should be resized to fit its container.
+		eg, contain|cover|fill|none|scale-down
+	*/
+}
+
+/* Select the first post and apply this style to its title*/
+#posts .post:first-child .title {
+	position: absolute;
+	/*
+		An element with position: absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed).
+		However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling. and you can also move it with the next properties
+	*/
+	bottom: 5px;
+	left: 0;
+	right: 0;
+}
+
+/* Select the first post and apply this style to its links */
+#posts .post:first-child a {
+	color: var(--white-color);
+	background: rgba(56, 53, 53, 0.78);
+	padding: 2rem 0;
+	font-family: 'Poppins-light';
+	font-size: 22px;
+	margin: 0;
+}
+
+/* Why Soundwave Section*/
+#features-hero {
+	width: 100%;
+	height: 700px;
+	display: grid;
+	/*
+		The CSS Grid Layout Module offers a grid-based layout system, with rows and columns,
+		making it easier to design web pages without having to use floats and positioning.
+		But I only used it to have a chance using place-item property
+	*/
+	place-items: center;
+	/* to center children verticaly and horizontaly once */
+	background-image: url("../img/photos/bg-features.jpg");
+	background-position: center center;
+	/* sets the starting position of a background image. verticel: center, horiontal: center */
+	background-size: cover;
+	/* specifies the size of the background images. background-size: auto|length|cover|contain|initial|inherit; */
+	background-repeat: no-repeat;
+	/* avoid repeating the background image */
+	margin: 0 0 4rem;
+	/*
+		instead of using,
+		margin-top: 0;
+		margin-right: 0;
+		margin-bottom: 4rem;
+		margin-left: 0;
+	*/
+}
+
+#features-hero h1 {
+	color: var(--white-color);
+	font-family: 'Poppins-bold';
+	font-weight: bold;
+	font-size: var(--size-larg);
+	line-height: 55px;
+	text-align: center;
+	opacity: 0.8;
+	text-shadow: var(--text-shadow);
+}
+
+#why-soundwave {
+	padding: 4rem 0;
+}
+
+#why-soundwave .container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+#why-soundwave .container .why h3 {
+	font-size: var(--size-larg);
+}
+
+#why-soundwave .container .why ul {
+	height: 450px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+#why-soundwave .container .why ul li {
+	display: flex;
+	align-items: center;
+	font-size: 20px
+}
+
+#why-soundwave .container .why ul li img {
+	margin-right: 2rem;
+}
+
+#with-you {
+	padding: 4rem 0;
+	background-color: var(--light-red-color);
+	color: var(--white-color);
+}
+
+#with-you .container {
+	text-align: center;
+}
+
+/* Select first direct div child on .container class */
+#with-you .container>div:first-child {
+	width: 70%;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	max-width: 290px;
+}
+
+#with-you h4 {
+	font-size: 30px;
+}
+
+#with-you .imgs {
+	margin-top: 4rem;
+	margin-bottom: 4rem;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+#with-you .imgs span {
+	display: block;
+	margin-top: 10px;
+}
+
+#with-you .imgs img {
+	height: 100px;
+}
+
+#with-you p {
+	margin: 0 auto;
+	width: 50%;
+	font-size: var(--size-medium);
+	line-height: 1.8rem;
+	font-weight: 500;
+	font-family: "Poppins-medium";
+}
+
+/*footer */
+#footer {
+	padding: 1rem 0;
+	background: var(--black-color);
+	color: var(--white-color);
+}
+
+#footer .container,
+#footer ul {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* apply margin-right for all the li element except for the last one */
+#footer li:not(:last-child) {
+	margin-right: 1.5rem;
+}
+
+#footer a {
+	color: var(--white-color);
+}
+
+/*Responsive=*/
+
+/* Apply this style in 1200px window width (or >1200px) */
+@media (min-width: 1200px) {
+	.container {
+		/* make the content to be center of the window with this width 1140px */
+		max-width: 1140px;
+	}
+}
+
+/* for Desktop */
+@media (max-width: 992px) {
+	.container {
+		max-width: 960px;
+	}
+
+	#hero .container img {
+		max-width: 100%;
+		object-fit: cover;
+	}
+}
+
+/* for Tablet */
+@media (max-width: 768px) {
+	.container {
+		max-width: 720px;
+	}
+
+	#hero .container img {
+		margin-top: 3rem;
+		width: 350px;
+	}
+
+	#hero>div.container {
+		display: flex;
+		flex-direction: column-reverse;
+		/*
+			make the children to be revers stacked vertically, example (numbers plays the content)
+			from
+				1,2,3,4,5
+			to
+				5
+				4
+				3
+				2
+				1
+		*/
+		align-items: center;
+		text-align: center;
+	}
+
+	#features {
+		padding: 4rem 0 6rem;
+		position: relative;
+		/* to avoid any position absolute children to go outside and they will be relative to this box*/
+	}
+
+	#features .container {
+		display: block;
+	}
+
+	/* Select first direct div child on .container class */
+	#features .container>div:first-child {
+		width: auto;
+		height: auto;
+	}
+
+	#features .container .capturse {
+		display: flex;
+		align-items: flex-end;
+		/* make all the content go to the end, default value is flex-start */
+		justify-content: center;
+	}
+
+	/* Select the img number 1 and 3 */
+	#features .container .capturse img:nth-child(1),
+	#features .container .capturse img:nth-child(3) {
+		width: 50px;
+	}
+
+	/* Select the img number 2 and 4 */
+	#features .container .capturse img:nth-child(2),
+	#features .container .capturse img:nth-child(4) {
+		width: 90px;
+	}
+
+	#features .container h3 {
+		font-size: var(--size-medium);
+	}
+
+	/* Select the p tag on first direct div child in .container class */
+	#features .container>div:first-child p {
+		position: absolute;
+		bottom: 1.5rem;
+		width: 90%;
+	}
+
+	#features .container .icons {
+		margin: 3rem auto;
+	}
+
+	#sign-up {
+		padding: 4rem 0;
+	}
+
+	#sign-up form * {
+		display: block;
+		text-align: left;
+	}
+
+	#features .container,
+	#sign-up .container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		height: auto;
+	}
+
+	.hero-cta h1 {
+		font-size: 35px;
+		/* have a smaller font size to make it looks good on tablet version*/
+		text-shadow: none;
+		/* remove text shadow on tablet version */
+	}
+
+	#sign-up .join-the-fun {
+		margin-bottom: 3rem;
+	}
+
+	#sign-up form label.open {
+		text-align: left;
+		/* make text start from the left */
+	}
+
+	/* select last input inside the form */
+	#sign-up form input:last-child {
+		border-radius: 50px;
+		font-size: 13px;
+		text-align: center;
+	}
+
+	#with-you .container {
+		justify-content: space-between;
+		flex-wrap: wrap;
+		text-align: center;
+	}
+
+	#features-hero {
+		height: 300px;
+		margin: 0 0 2rem;
+	}
+
+	#features-hero h1 {
+		font-size: 25px;
+		line-height: 2.5rem;
+	}
+
+	#with-you h4 {
+		font-size: 30px;
+		margin-bottom: 1rem;
+		margin-top: 3rem;
+	}
+
+	#with-you p {
+		width: auto;
+		/* give it the default width */
+		margin: 0 auto;
+		/* make the paragraph on the center*/
+	}
+
+	/* hide the .tablet element */
+	#with-you .imgs .tablet {
+		display: none;
+	}
+
+	#with-you .container>div {
+		width: 100% !important; /* the 'important' keyword to override the old value to the current one */
+	}
+
+	#with-you .container>div:first-child {
+		margin: 0 auto;
+	}
+
+	#why-soundwave {
+		padding: 0 0 3rem;
+	}
+
+	#why-soundwave .container .why h3 {
+		font-size: 30px;
+	}
+
+	#why-soundwave .container .why ul {
+		height: 350px;
+	}
+
+	#why-soundwave .container .why ul li img {
+		width: 30px;
+	}
+
+	#posts .post {
+		margin: 0 auto; /* make the post ont the center */
+	}
+}
+
+/* for Phone */
+@media (max-width: 560px) {
+
+	#hero {
+		padding-top: 5rem;
+		/* make hero padding smaller*/
+	}
+
+	#hero .container img {
+		margin-top: 5rem;
+	}
+
+	/* shows the menu icon, so we can click on it to make the input checked so we can open the sidebar*/
+	#menu label.open {
+		display: block;
+	}
+
+	/* Redesign the sidebar */
+	#menu ul {
+		background: var(--header-bg);
+		/* change the background color */
+		position: fixed;
+		/* make it fixed on scrolling */
+		top: 0;
+		/* start from top of the screen*/
+		left: -900px;
+		/* hides it on the left */
+		right: 0;
+		/* to have it with full width*/
+		bottom: 0;
+		/* ends in the bottom of the screen */
+		width: 100%;
+		/* force the sidebar to be 100% width to avoid any issues */
+		flex-direction: column !important;
+		/* forcing the direction to be column by using this important keyword */
+		align-items: center !important;
+		justify-content: center !important;
+		z-index: 9;
+		/* to make sure that is on top of everything on the screen */
+		transition: left 400ms ease-in;
+		/* transition delay 400ms on 'left' property, from old value, to the newesr */
+	}
+
+	/* When toggling the humberger menu means when the hidden checkbox is checked, hide the 'open icon' */
+	#menu #toggle-menu:checked~label.open {
+		display: none;
+	}
+
+	/*
+		if the checkbox is checked ?
+		shows the side bar by reset the 'left' to 0 with the transition delay of 400ms,
+		(ease-out|ease|ease-in|ease-in-out are just how the transition should looks)
+	*/
+	#menu #toggle-menu:checked~ul {
+		left: 0;
+		transition: left 400ms ease-out;
+	}
+
+	/*
+		if the checkbox is checked ?
+		Show the 'close icon' on the right corner
+	*/
+	#menu #toggle-menu:checked~label.close {
+		display: block;
+	}
+
+	#menu ul li {
+		margin: 0 !important;
+		width: 100%;
+	}
+
+	#menu ul li a {
+		display: block;
+		text-align: center;
+		padding: 1.5rem 0;
+	}
+
+	#menu ul li a:hover {
+		background: var(--link-hover);
+		transition: background 300ms ease-in;
+	}
+
+	#features .container .capturse {
+		display: block;
+		text-align: center;
+	}
+
+	#features .container .capturse img:nth-child(1),
+	#features .container .capturse img:nth-child(3) {
+		width: 120px;
+	}
+
+	#features .container .capturse img:nth-child(2),
+	#features .container .capturse img:nth-child(4) {
+		width: 160px;
+	}
+
+	#features .container p {
+		font-size: 14px;
+		line-height: 22px;
+	}
+
+	#why-soundwave .container .why ul {
+		max-width: 300px;
+	}
+
+	#why-soundwave .container .why h3 {
+		text-align: center;
+	}
+
+	.container {
+		min-width: 300px;
+	}
+
+	#sign-up .join-the-fun p {
+		font-size: 16px;
+		line-height: 20px;
+	}
+
+	/* Select all the direct div children of the .imgs */
+	#with-you .imgs>div {
+		margin-top: 2rem;
+		width: 50%;
+	}
+
+	#posts .post a {
+		font-size: 18px !important;
+	}
+
+	#features-hero {
+		background-position: center left; /* let the background start from center in x axies and left from y axies */
+	}
+
+	/* Select all the li except the last one */
+	#footer li:not(:last-child) {
+		margin-right: .5rem;
+	}
+
+	#footer .container,
+	#footer ul {
+		justify-content: space-around; /* make the items have space around them */
+		font-size: 12px; /* make the text smaller */
+	}
+}
